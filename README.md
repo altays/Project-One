@@ -1,26 +1,25 @@
-# Project-One
-Repo for first group project
+# My Happy Glamper: Project One
+The goal for this project was to develop an application that would allow a user to find campsites based on an input location, and activities that could occur around there. This project uses the Bulma framework.
 
-## Project title
-My Happy Camper
+The User Story for this project was as follows: 
 
-## Project description
-Look up campsites based on input locations, see what activities and events happen there, and then find them on a map
-
-## User story
 AS A person who wants to go on vacation
-I WANT TO... find a campsite
-SO THAT I... can plan my vacation
+I WANT TO find a campsite
+SO THAT I can plan my vacation
 
-## Wireframe or sketch of design
-Using Bulma framework
+
+The acceptance criteria were as follows: 
+
+GIVEN I am planning a trip
+WHEN I open the app
+I AM presented with five parks near me
+
+## Satisfying the Acceptance Criteria
+
+
 
 ## APIs to be used
-Government Recreation Area API: https://ridb.recreation.gov/docs#/
-Google Maps API: https://cloud.google.com/maps-platform/
-More APIs to be added as we create features
 
-## Breakdown of tasks
-Get set up with Bulma (everyone)
-Testing APIs to make sure they work (testing in Postman - everyone)
-Work out acceptance criteria this week (everyone)
+The National Parks Service API (https://www.nps.gov/subjects/developer/index.htm) was used for information on parks based on state. The MapQuest API (https://developer.mapquest.com/) was used to find things that can be done nearby based on search criteria.
+
+## Future Developments
