@@ -6,7 +6,7 @@
   box-shadow: 0px -1px lightgray;
 } */
 
-body {
+/* body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
@@ -14,4 +14,4 @@ body {
   
 #footer {
   flex: 1;
-}
+} */
