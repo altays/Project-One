@@ -9,23 +9,41 @@
     <!-- CSS Links -->
     <link rel="stylesheet" type="text/css" href="assets/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <!-- Add Icons link here if desired -->
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js">
+    </script>    <!-- Add Icons link here if desired -->
 </head>
 <body style="overflow: visiable;">
     <!-- This is the banner -->
-    <section class="hero is-fullheight is-default is-bold">
+    <section class="hero is-fullheight is-default is-bold is-primary">
         <nav class="navbar is-fresh is-transparent no-shadow" role="navigation" aria-label="main navigation">
             <div class="container">
                <div class="navbar-brand">
-                   <a class="navbar-item" href="">
-                       <img src="#" alt="Logo image goes here">
+                   <a class="navbar-item" href="">                               
+                       <img src="#" alt="Logo image goes here"> 
+                       <h1 class="title is-5"> Hello Yall</h1>
                    </a>
                </div> 
             </div>
         </nav>
     </section>
-    
+          <div class="container" id="app"> 
+            <div class="modal">
+                <div class="modal-background"></div>
+                <div class="modal-card">
+                  <header class="modal-card-head">
+                    <p class="modal-card-title">Modal title</p>
+                    <button class="delete" aria-label="close"></button>
+                  </header>
+                  <section class="modal-card-body">
+                    <!-- Content ... -->
+                  </section>
+                  <footer class="modal-card-foot">
+                    <button class="button is-success" id="showModal">Save Location</button>
+                    <button class="modal-close">Cancel</button>
+                  </footer>
+                </div>
+              </div>
+            </div>
 </body>
 <script src="assets/script.js"></script>
 </html>
