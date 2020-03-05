@@ -5,3 +5,13 @@
 /* .navbar-is-fixed-bottom{
   box-shadow: 0px -1px lightgray;
 } */
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+  
+#footer {
+  flex: 1;
+}
