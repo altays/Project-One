@@ -18,6 +18,8 @@
         <input class="uk-input uk-form-width-medium uk-form-large" id="activitySearch" type="text" placeholder="Enter state Code">
     </form>
     <script>
+
+/// PROMPTS FOR PERMISSION TO USE PERMISSION /////
         getLocation();
 let locatorText = document.getElementById("mapperID");
 function getLocation() {
@@ -31,6 +33,7 @@ function getLocation() {
 function showPosition(position) {
     locatorText.innerHTML = "Latitude: " + position.coords.latitude + 
   "<br>Longitude: " + position.coords.longitude;
+  console.log("the position: " + position);
 //// geneerates a mapquest map utilizing the lat & long of the user ///
         L.mapquest.key = 'm6r48gcKnaiZ5cS9fynPUC8mEcXnoOjO';
         let map = L.mapquest.map('map', {
@@ -44,19 +47,28 @@ function showPosition(position) {
           draggable: false
         }).bindPopup('You').addTo(map);
 
-
-
-
+//// SECION FOR THE EVENT LISTENER FOR KEYPRESS //////
         document.addEventListener("keypress", function(event){
     if(event.key === 'Enter' || event.key === 'Return'){
         event.preventDefault();
         let activityName = document.getElementById("activitySearch");
-        let textBox = document.querySelector("#activitySearch");
-        queryActivity = activityName.value;
+        let textBox = document.querySelector("#activitySearch");  
+        stateSearch = activityName.value;
+        $.get('https://ipapi.co/ip/', function(data){
+            let ipFetched = data;
+            console.log(ipFetched);
+            let ipEmbed = "https://ipapi.co/" + ipFetched + "/json/";
+        $.getJSON(ipEmbed, function(data){
+            let ipTrace = data;
+            console.log(ipTrace);
+            // locationLat = ipTrace.latitude
+            // locationLong = ipTrace.longitude;
+            stateLocation = ipTrace.region_code;
+            console.log("state location: "+ stateLocation);
 
 let limitResults = "&limit=50";
 let apiKey = "C20X2gP148EDeslk7stqM8BU6u6WmOqbAdPeKG8C";
-let queryURL = "https://developer.nps.gov/api/v1/campgrounds?stateCode="+ queryActivity +"&limit=5&api_key=C20X2gP148EDeslk7stqM8BU6u6WmOqbAdPeKG8C";
+let queryURL = "https://developer.nps.gov/api/v1/parks?stateCode="+ stateLocation +"&limit=5&api_key=C20X2gP148EDeslk7stqM8BU6u6WmOqbAdPeKG8C";
 
 //var queryURL = "https://ridb.recreation.gov/api/v1/activities?query=" + queryActivity + limitResults + "&limit=5&api_key=" +apiKey;
     
@@ -67,7 +79,7 @@ $.ajax({ //
     let npsResponse = response;
     console.log(npsResponse);
     for(entry=0; entry < 10; entry++){
-        parkTitle = npsResponse.data[entry].name;
+        parkTitle = npsResponse.data[entry].fullName;
         parkLatLong = (npsResponse.data[entry].latLong).replace("{", "").replace("}","");
         if(parkLatLong != ''){
         parkLatLong = parkLatLong.split(',');
@@ -75,15 +87,16 @@ $.ajax({ //
         let parkLatClean = parkLat.replace("lat:", "");
         parkLong = (parkLatLong[1])
         let parkLongClean = parkLong.replace("lng:", "");
-              $.get('https://ipapi.co/ip/', function(data){
-            let ipFetched = data;
-            console.log(ipFetched);
-            let ipEmbed = "https://ipapi.co/" + ipFetched + "/json/";
-        $.getJSON(ipEmbed, function(data){
-            let ipTrace = data;
-            console.log(ipTrace);
-            locationLat = ipTrace.latitude
-            locationLong = ipTrace.longitude;
+        //       $.get('https://ipapi.co/ip/', function(data){
+        //     let ipFetched = data;
+        //     console.log(ipFetched);
+        //     let ipEmbed = "https://ipapi.co/" + ipFetched + "/json/";
+        // $.getJSON(ipEmbed, function(data){
+        //     let ipTrace = data;
+        //     console.log(ipTrace);
+        //     // locationLat = ipTrace.latitude
+        //     // locationLong = ipTrace.longitude;
+        //     stateLocation = ipTrace.stateRegion;
         //     new google.maps.Geocoder();
         // console.log("google Response: " + google.maps.geometry.spherical.computeDistanceBetween(locationLat + locationLong, parkLatClean+ parkLongClean));
         console.log("parkTitle response: " + parkTitle+ ", latLong: "+ parkLatLong + "parkLatClean: "+ parkLatClean + ", parkLongClean: "+ parkLongClean);
@@ -96,10 +109,10 @@ $.ajax({ //
     let mapQResponse = response;
     console.log(mapQResponse)
 })
+    }}})
     })})
-    }}
 
-          })}}
+          }}
         )}
 </script>
 </body>
