@@ -1,6 +1,6 @@
 let incrementButton = $(".increment-button");
 let decrementButton = $(".decrement-button");
-let index=0;
+let index=-1;
 
 let queryURL = "https://developer.nps.gov/api/v1/parks?stateCode=MD&limit=5&api_key=C20X2gP148EDeslk7stqM8BU6u6WmOqbAdPeKG8C";
 let npsResponse;
@@ -22,17 +22,27 @@ let longitude;
 let description;
 let addressType1;
 let addressType2;
+
+let addressLine1;
+let addressLine2;
+let addressLine3;
+let addressCity;
+let addressZip;
+let addressState;
 let displayAddress;
+let addressIndex;
 
-// helper function
+// helper functions
 
-function displayPhysical(addressType1,addressType2) {
+// returns index of physical address - if first one is "physical", sets to 0, if second is "physical", sets to 1
+function determinePhysical(addressType1,addressType2) {
     if (addressType1 == "Physical") {
-        return addressType1
+        return addressIndex=0;
     } else {
-        return addressType2
+        return addressIndex=1;
     }
 }
+
 
 incrementButton.on("click",function(){
     index++;
@@ -62,14 +72,23 @@ incrementButton.on("click",function(){
 
         addressType1=response.data[index].addresses[0].type;
         addressType2=response.data[index].addresses[1].type;
-        
+
+        // determine these based on the result from determinePhysical -> use this as the index
+        console.log(determinePhysical(addressType1,addressType2));
+        addressLine1;
+        addressLine2;
+        addressLine3;
+        addressCity;
+        addressZip;
+        addressState;
+        displayAddress;
+        addressIndex;
+
         console.log("fullname: " + fullName + "\nEmail: " + contactEmail + "\nPhone: " + contactPhone + "\nDirections: " + directionInfo + "\nLink to Directions: " + directionURL);
         console.log("latitude: " + latitude + "\nlongitude: " + longitude + "\nDescription: " + description);
         console.log("Monday hours " + standardHoursMonday + "\nTuesday hours " + standardHoursTuesday +"\nWednesday hours " + standardHoursWednesday + "\nThursday hours " + standardHoursThursday + "\nFriday hours " + standardHoursFriday +"\nSaturday hours " + standardHoursSaturday + "\nSunday Hours " + standardHoursSunday)
-        console.log("Address 1 type: " + displayPhysical(addressType1,addressType2));
+        console.log("Address: ");
     })
-    
-
 })
 
 decrementButton.on("click",function(){
@@ -81,7 +100,7 @@ decrementButton.on("click",function(){
         url: queryURL, 
         method: "GET"
     }).then(function(response){
-        console.log(response);
+        // console.log(response);
         npsResponse=response;
     
         fullName = response.data[index].fullName;
@@ -102,11 +121,22 @@ decrementButton.on("click",function(){
 
         addressType1=response.data[index].addresses[0].type;
         addressType2=response.data[index].addresses[1].type;
+
+        // determine these based on the result from determinePhysical -> use this as the index
+        console.log(determinePhysical(addressType1,addressType2));
+        addressLine1;
+        addressLine2;
+        addressLine3;
+        addressCity;
+        addressZip;
+        addressState;
+        displayAddress;
+        addressIndex;
         
         console.log("fullname: " + fullName + "\nEmail: " + contactEmail + "\nPhone: " + contactPhone + "\nDirections: " + directionInfo + "\nLink to Directions: " + directionURL);
         console.log("latitude: " + latitude + "\nlongitude: " + longitude + "\nDescription: " + description);
         console.log("Monday hours " + standardHoursMonday + "\nTuesday hours " + standardHoursTuesday +"\nWednesday hours " + standardHoursWednesday + "\nThursday hours " + standardHoursThursday + "\nFriday hours " + standardHoursFriday +"\nSaturday hours " + standardHoursSaturday + "\nSunday Hours " + standardHoursSunday)
-        console.log("Address 1 type: " + displayPhysical(addressType1,addressType2));
+        console.log("Address: " );
     })
     
 
