@@ -75,19 +75,17 @@ incrementButton.on("click",function(){
 
         // determine these based on the result from determinePhysical -> use this as the index
         console.log(determinePhysical(addressType1,addressType2));
-        addressLine1;
-        addressLine2;
-        addressLine3;
-        addressCity;
-        addressZip;
-        addressState;
-        displayAddress;
-        addressIndex;
-
+        addressLine1=response.data[index].addresses[determinePhysical(addressType1,addressType2)].line1;
+        addressLine2=response.data[index].addresses[determinePhysical(addressType1,addressType2)].line2;
+        addressLine3=response.data[index].addresses[determinePhysical(addressType1,addressType2)].line3;
+        addressCity=response.data[index].addresses[determinePhysical(addressType1,addressType2)].city;
+        addressZip=response.data[index].addresses[determinePhysical(addressType1,addressType2)].postalCode;
+        addressState=response.data[index].addresses[determinePhysical(addressType1,addressType2)].stateCode;
+        
         console.log("fullname: " + fullName + "\nEmail: " + contactEmail + "\nPhone: " + contactPhone + "\nDirections: " + directionInfo + "\nLink to Directions: " + directionURL);
         console.log("latitude: " + latitude + "\nlongitude: " + longitude + "\nDescription: " + description);
         console.log("Monday hours " + standardHoursMonday + "\nTuesday hours " + standardHoursTuesday +"\nWednesday hours " + standardHoursWednesday + "\nThursday hours " + standardHoursThursday + "\nFriday hours " + standardHoursFriday +"\nSaturday hours " + standardHoursSaturday + "\nSunday Hours " + standardHoursSunday)
-        console.log("Address: ");
+        console.log("Address: " + "\n" + addressLine1 +  "\n" + addressCity + " " + addressState + " " + addressZip);
     })
 })
 
@@ -124,19 +122,17 @@ decrementButton.on("click",function(){
 
         // determine these based on the result from determinePhysical -> use this as the index
         console.log(determinePhysical(addressType1,addressType2));
-        addressLine1;
-        addressLine2;
-        addressLine3;
-        addressCity;
-        addressZip;
-        addressState;
-        displayAddress;
-        addressIndex;
+        addressLine1=response.data[index].addresses[determinePhysical(addressType1,addressType2)].line1;
+        addressLine2=response.data[index].addresses[determinePhysical(addressType1,addressType2)].line2;
+        addressLine3=response.data[index].addresses[determinePhysical(addressType1,addressType2)].line3;
+        addressCity=response.data[index].addresses[determinePhysical(addressType1,addressType2)].city;
+        addressZip=response.data[index].addresses[determinePhysical(addressType1,addressType2)].postalCode;
+        addressState=response.data[index].addresses[determinePhysical(addressType1,addressType2)].stateCode;
         
         console.log("fullname: " + fullName + "\nEmail: " + contactEmail + "\nPhone: " + contactPhone + "\nDirections: " + directionInfo + "\nLink to Directions: " + directionURL);
         console.log("latitude: " + latitude + "\nlongitude: " + longitude + "\nDescription: " + description);
         console.log("Monday hours " + standardHoursMonday + "\nTuesday hours " + standardHoursTuesday +"\nWednesday hours " + standardHoursWednesday + "\nThursday hours " + standardHoursThursday + "\nFriday hours " + standardHoursFriday +"\nSaturday hours " + standardHoursSaturday + "\nSunday Hours " + standardHoursSunday)
-        console.log("Address: " );
+        console.log("Address: " + addressLine1 + " " + addressLine2 + " " + addressLine3 + ", " + addressCity + ", " + addressState + " " + addressZip);
     })
     
 
