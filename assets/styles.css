@@ -1,12 +1,36 @@
+body {
+  color:#080f0f;
+}
+
 .navbar {
-    box-shadow: 0px 1px lightgray;
+  box-shadow:0px 1px 20px #7e9e9b54;
+}
+  
+  
+@media (max-width: 768px) {
+  .center-flex-text-var {
+    text-align:center;
+    place-content:center;
   }
-  
-  
-  @media (max-width: 768px) {
-    .center-flex-text-var {
-      text-align:center;
-      place-content:center;
-    }
-  }
-  
+}
+
+moz-any-link {
+  background-color: #080f0f;
+  background-color: #a4bab7;
+  background-color: #f15025;
+  background-color: #ffffff;
+  background-color: #e6e8e6;
+}
+
+.background-color-section-var {
+  background-color: #e6e8e6;;
+}
+
+.background-color-navbar-var {
+  background-color: #a4bab7;
+}
+
+.text-color-navbar-var {
+  color: #ffffff;
+  text-shadow:1px 1px #080f0f;
+}
