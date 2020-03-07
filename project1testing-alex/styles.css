@@ -2,16 +2,10 @@
   box-shadow: 0px 1px lightgray;
 }
 
-/* .navbar-is-fixed-bottom{
-  box-shadow: 0px -1px lightgray;
-} */
 
-/* body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+@media (max-width: 768px) {
+  .center-flex-text-var {
+    text-align:center;
+    place-content:center;
+  }
 }
-  
-#footer {
-  flex: 1;
-} */
