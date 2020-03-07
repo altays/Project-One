@@ -1,31 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta http-equiv="x-us-compatible" content="Open-Source app, built on top of Bulma CSS and coded in JAMstack pattern.">
-    <title>My Happy Glamper*working-title</title>
-    
-    <!-- CSS Links -->
-    <link rel="stylesheet" type="text/css" href="assets/styles.css">
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hello Bulma!</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link rel="stylesheet" href="assets/styles.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <!-- Add Icons link here if desired -->
-</head>
-<body style="overflow: visiable;">
-    <!-- This is the banner -->
-    <section class="hero is-fullheight is-default is-bold">
-        <nav class="navbar is-fresh is-transparent no-shadow" role="navigation" aria-label="main navigation">
-            <div class="container">
-               <div class="navbar-brand">
-                   <a class="navbar-item" href="">
-                       <img src="#" alt="Logo image goes here">
-                   </a>
-               </div> 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+  <body>
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand center-flex-text-var ">
+          <a class="navbar-item  " href="https://bulma.io">
+            <h1 class="title is-1 ">FORESTR</h1>
+          </a>
+        </div>
+
+        <div class="navbar-start">
+          <div class="navbar-item center-flex-text-var">
+            <h2 class="title is-5">Find Today's Escape!</h2>
+          </div>
+        </div>
+    </nav>
+
+    <section class="section has-background-white-ter" id="body">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-one-third ">
+            <div class="box">
+              <h3 class="title is-4 has-text-centered">Directions</h3>
+              <hr />
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis quae maxime dolorum tenetur minus sed consequuntur iure explicabo modi eum dolore itaque perferendis unde corrupti odit soluta reprehenderit quia eligendi, quas beatae saepe blanditiis possimus. Pariatur, tenetur ipsum similique eum minima recusandae consequuntur accusantium eligendi maiores distinctio corporis doloribus ex quae ducimus fuga consequatur fugit repellat provident quos hic omnis delectus excepturi deserunt. Modi recusandae labore magnam reprehenderit molestiae nisi repudiandae fuga dolorem perspiciatis voluptatem inventore cum, mollitia rem, ipsam at qui delectus dolore illo quo! Possimus atque delectus tenetur! Nesciunt iste aspernatur minus nisi vitae. Et minima dicta culpa?
+              </p>
             </div>
-        </nav>
+          </div>
+          <div class="column is-two-thirds">
+            <div class="box">
+              <div id="map" style="width: 100%; height: 530px;"></div>
+          </div>
+        </div>
+      </div>
     </section>
-    
-</body>
-<script src="assets/script.js"></script>
+
+    <!-- make this sticky bottom -->
+    <nav class="navbar-is-fixed-bottom has-text-centered-desktop has-text-centered-tablet has-text-centered-mobile" role="footer" aria-label="footer" id="footer">
+      <div class="navbar-item">
+        <p>
+          <strong>Forestr</strong> created by by Ricardo Schaffer, Victoria Saleem, and Alex Taylor.
+        </p>
+      </div>
+    </nav>
+
+  </body>
+  <script src="script.js"></script>
 </html>
