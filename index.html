@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
+    <title>FORESTR | Find your park here !</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <link rel="stylesheet" href="assets/styles.css">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
@@ -40,10 +40,35 @@
           <div class="column is-two-thirds">
             <div class="box">
               <div id="map" style="width: 100%; height: 530px;"></div>
+              <div> <!--Button test to activate modal  -->
+                <button class="button is-light" id="location-info">Button</button>
+              </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- This is the modal -->
+    <div class="container" id="app"> 
+      <div class="modal">
+        <div class="modal-background"></div>
+          <div class="modal-card">
+            <header class="modal-card-head">
+              <p class="modal-card-title" id="location-title">Modal title</p>
+            </header>
+          
+            <section class="modal-card-body" id="location-info">
+            <!-- Content ... 
+            -->
+            </section>
+          
+            <footer class="modal-card-foot">
+              <button class="button is-success" id="save-location">Save Location</button>
+              <button class="button is-light" id="modal-close">Cancel</button>
+            </footer>
+          </div>
+      </div>
+    </div>
 
     <!-- make this sticky bottom -->
     <nav class="navbar-is-fixed-bottom has-text-centered-desktop has-text-centered-tablet has-text-centered-mobile" role="footer" aria-label="footer" id="footer">
@@ -55,5 +80,5 @@
     </nav>
 
   </body>
-  <script src="script.js"></script>
+  <script src="assets/script.js"></script>
 </html>
