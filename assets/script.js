@@ -11,3 +11,4 @@ $("#modal-close").click(function() {
 // Saves location
 
 
+// Use jQuery to assign values based on ids.
