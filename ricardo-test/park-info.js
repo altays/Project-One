@@ -35,6 +35,7 @@ let addressIndex;
 // helper functions
 
 // returns index of physical address - if first one is "physical", sets to 0, if second is "physical", sets to 1
+
 function determinePhysical(addressType1,addressType2) {
     if (addressType1 == "Physical") {
         return addressIndex=0;
@@ -137,3 +138,15 @@ decrementButton.on("click",function(){
     
 
 })
+let parkButton = document.createElement("button");
+// $(parkButton).attr("class", "modal-button");
+// $(parkButton).attr("data-target", "modal-ter");
+// $(parkButton).attr("aria-haspopup","true");
+$(parkButton).attr("id", "location-info");
+$(parkButton).attr("class","button");
+$(parkButton).text(fullName);
+$("#location-title").text(fullName);
+$("#location-info").text(addressLine2);
+$("#location-info").click(function() {
+$(".modal").addClass("is-active");  
+});
