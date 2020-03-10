@@ -1,10 +1,5 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-$("#modal-close").click(function() {
-  $(".modal").removeClass("is-active");
-});
-$("#location-info").click(function() {
-  $(".modal").addClass("is-active");  
-});
+
 
 
 // let incrementButton = $(".increment-button");
@@ -111,21 +106,21 @@ $("#location-info").click(function() {
 //         // console.log(response);
 //         npsResponse=response;
     
-//         fullName = response.data[index].fullName;
-//         contactEmail = response.data[index].contacts["emailAddresses"][0].emailAddress;
-//         contactPhone = response.data[index].contacts.phoneNumbers[0].phoneNumber;
-//         directionInfo=response.data[index].directionsInfo;
-//         directionURL=response.data[index].directionsUrl;
-//         standardHoursMonday=response.data[index].operatingHours[0].standardHours.monday;
-//         standardHoursTuesday=response.data[index].operatingHours[0].standardHours.tuesday;
-//         standardHoursWednesday=response.data[index].operatingHours[0].standardHours.wednesday;
-//         standardHoursThursday=response.data[index].operatingHours[0].standardHours.thursday;
-//         standardHoursFriday=response.data[index].operatingHours[0].standardHours.friday;
-//         standardHoursSaturday=response.data[index].operatingHours[0].standardHours.saturday;
-//         standardHoursSunday=response.data[index].operatingHours[0].standardHours.sunday;
-//         latitude=response.data[index].latitude;
-//         longitude=response.data[index].longitude;
-//         description = response.data[index].description;
+        // fullName = response.data[index].fullName;
+        // contactEmail = response.data[index].contacts["emailAddresses"][0].emailAddress;
+        // contactPhone = response.data[index].contacts.phoneNumbers[0].phoneNumber;
+        // directionInfo=response.data[index].directionsInfo;
+        // directionURL=response.data[index].directionsUrl;
+        // standardHoursMonday=response.data[index].operatingHours[0].standardHours.monday;
+        // standardHoursTuesday=response.data[index].operatingHours[0].standardHours.tuesday;
+        // standardHoursWednesday=response.data[index].operatingHours[0].standardHours.wednesday;
+        // standardHoursThursday=response.data[index].operatingHours[0].standardHours.thursday;
+        // standardHoursFriday=response.data[index].operatingHours[0].standardHours.friday;
+        // standardHoursSaturday=response.data[index].operatingHours[0].standardHours.saturday;
+        // standardHoursSunday=response.data[index].operatingHours[0].standardHours.sunday;
+        // latitude=response.data[index].latitude;
+        // longitude=response.data[index].longitude;
+        // description = response.data[index].description;
 
 //         addressType1=response.data[index].addresses[0].type;
 //         addressType2=response.data[index].addresses[1].type;
@@ -226,18 +221,41 @@ $("#location-info").click(function() {
             let parkLatClean = parkLat.replace("lat:", "");
             parkLong = (parkLatLong[1])
             let parkLongClean = parkLong.replace("long:", "");
-
-
             let parkButton = document.createElement("button");
             // $(parkButton).attr("class", "modal-button");
             // $(parkButton).attr("data-target", "modal-ter");
             // $(parkButton).attr("aria-haspopup","true");
-
+            let modalContainer = document.createElement("div");
+            $(modalContainer).attr("class", "container");
+            $(modalContainer).attr("id", "app");
+            let modalEventCreation = document.createElement("div");
+            $(modalEventCreation).attr("class","modal");
+            let modalBackground = document.createElement("div");
+            $(modalBackground).attr("class", "modal-background");
+            $(modalEventCreation).attr("class", "modal");
+            
+            let modalEventTitle = document.createElement("div");
+            $(modalEventTitle).attr("class", "modal-card-body");
+            $(modalEventTitle).attr("id", parkTitle);
+            $(modalEventTitle).text(parkTitle);
+            $(modalEventCreation).append(modalEventTitle);
+            let modalSection = document.createElement("section");
+            $(modalSection).attr("class", "modal-card-body");
+            $(modalSection).attr("id", parkLongClean);
+            $(modalSection).append(modalEventCreation);
+            $(modalContainer).append(modalSection);
+            let modalClose = document.createElement("footer");
+            $(modalClose).attr("class","modal-card-foot");
+            let modalCloseBtn = document.createElement("button");
+            $(modalCloseBtn).attr("class", "modal-close");
+            $(modalCloseBtn).attr("aria-label", "close");
+            $(modalCloseBtn).text("close");
+            //$(modalContainer).append(modalCloseBtn);
+            $(modalClose).append(modalCloseBtn);
+            $("#modalArea").append(modalContainer);
            
            //$("#location-info").text(addressLine2);
-           $("#location-info").click(function() {
-            $(".modal").addClass("is-active");  
-          });
+
     /// adds marker to the map for 'X' AMOUNT OF LOCATIONS FROM NPS FOR THE STATE ///
     L.marker([parkLatClean, parkLongClean], {
               icon: L.mapquest.icons.marker({
@@ -248,10 +266,38 @@ $("#location-info").click(function() {
               }),
               draggable: false
             }).bindPopup(parkButton).addTo(map);
-            $(parkButton).attr("id", "location-info");
-            $(parkButton).attr("class","button is-active");
+            $(parkButton).attr("id", parkLongClean);
+            $(parkButton).attr("class","button is-light");
            $(parkButton).text(parkTitle);
-           $("#location-title").text(parkTitle);
+           $(parkButton).attr("data-target", parkTitle);
+           $(parkButton).on("click", function(event) {
+            event.preventDefault();
+            $(modalEventCreation).attr("class", "modal is-active");
+            console.log("modal event creation: " + modalEventCreation);
+            console.log("modal Container" + modalEventTitle);
+           })
+        //    <div class="container" id="app"> 
+        //    <div class="modal">
+        //      <div class="modal-background"></div>
+        //        <div class="modal-card">
+        //          <header class="modal-card-head">
+        //            <p class="modal-card-title" id="location-title">Modal title</p>
+        //          </header>
+               
+        //          <section class="modal-card-body" id="location-info">
+        //          </section>
+               
+        //          <footer class="modal-card-foot">
+        //            <button class="button is-success" id="save-location">Save Location</button>
+        //            <button class="button is-light" id="modal-close">Cancel</button>
+        //          </footer>
+        //        </div>
+        //    </div>
+        //  </div>
+
+
+
+           //$("#location-title").text(parkTitle);
            //let parkButton = document.createElement("button");
 // $(parkButton).attr("class", "modal-button");
 // $(parkButton).attr("data-target", "modal-ter");
