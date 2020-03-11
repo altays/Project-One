@@ -141,7 +141,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
     $("#location-finder").on("click", function(event) {
         event.preventDefault();
     /// HIDES HERO BANNER ///
-    $("#hero-banner").attr("style", "display: none;");
+    $(".hero").attr("style", "display: none;");
+    $("#body").attr("style", "display: inline;");
     /// PROMPTS FOR PERMISSION TO USE PERMISSION /////
     let locatorText = document.getElementById("mapperID");
       getLocation();

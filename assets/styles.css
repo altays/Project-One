@@ -1,6 +1,9 @@
 body {
   color:#080f0f;
 }
+#body {
+  display: none;
+}
 a {
   color: #f15025;
 }
@@ -29,12 +32,11 @@ moz-any-link {
 }
 
 .background-color-navbar-var {
-  background-color: #f15025;
+  background-color: #000;
   /* background-color: #a4bab7; */
 }
 
 .text-color-navbar-var {
-  color: #f15025;
   text-shadow:1px 1px #080f0f;
 }
 .modal-card-head {
@@ -56,10 +58,18 @@ font-size: 18px;
 .modal-card-body {
 background-color:#e6e8e6;
 }
-.landscape-hero {
-  background-image:url("assets/go-explore-forestr-image-copyright-by-Marvin-Laput-Tenepre.jpg");
+.hero.has-bg-image {
+  background:url("./go-explore-forestr-image-copyright-by-Marvin-Laput-Tenepre.jpg") center center;
   background-size: cover;
   height: 650px;
   background-repeat: no-repeat;
   background-color: #f15025 !important;
+}
+.hero-body, .hero-body .title{
+  color: #fff;
+  text-align: center;
+  padding-top: 10%;
+}
+.subtitle {
+  text-align:center;
 }
