@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       let modalSection = document.createElement("section");
         $(modalSection).attr("class", "modal-card-body");
         $(modalSection).text(parkDescription);
-        $(modalSection).attr("style","background-image:url('assets/northern-forest.jpg'); background-size: 100%; color: #fff; background-repeat: no-repeat");
+        $(modalSection).attr("style","background-image:url('assets/northern-forest.jpg'); background-size: cover; color: #fff; background-repeat: no-repeat");
           descriptionHeading = document.createElement('H2');
           descriptionHeading.innerHTML = "<u>Why Visit</u>";
           parkWeeklyHours = document.createElement('ul');
