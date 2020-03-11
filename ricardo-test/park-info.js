@@ -1,3 +1,10 @@
+$("#modal-close").click(function() {
+    $(".modal").removeClass("is-active");
+  });
+  $("#location-info").click(function() {
+    $(".modal").addClass("is-active");  
+  });
+
 let incrementButton = $(".increment-button");
 let decrementButton = $(".decrement-button");
 let index=-1;
@@ -138,15 +145,16 @@ decrementButton.on("click",function(){
     
 
 })
-let parkButton = document.createElement("button");
-// $(parkButton).attr("class", "modal-button");
-// $(parkButton).attr("data-target", "modal-ter");
-// $(parkButton).attr("aria-haspopup","true");
-$(parkButton).attr("id", "location-info");
-$(parkButton).attr("class","button");
-$(parkButton).text(fullName);
-$("#location-title").text(fullName);
-$("#location-info").text(addressLine2);
-$("#location-info").click(function() {
-$(".modal").addClass("is-active");  
-});
+// let parkButton = document.createElement("button");
+// // $(parkButton).attr("class", "modal-button");
+// // $(parkButton).attr("data-target", "modal-ter");
+// // $(parkButton).attr("aria-haspopup","true");
+// $(parkButton).attr("id", "location-info");
+// $(parkButton).attr("class","button");
+// $(parkButton).text(fullName);
+// $("#location-title").text(fullName);
+// $("#location-info").text(addressLine2);
+// $("#location-info")
+// $("#location-info").click(function() {
+// $(".modal").addClass("is-active");  
+// });

@@ -1,10 +1,5 @@
 document.addEventListener("DOMContentLoaded", function (event) {
-$("#modal-close").click(function() {
-  $(".modal").removeClass("is-active");
-});
-$("#location-info").click(function() {
-  $(".modal").addClass("is-active");  
-});
+
 
 
 // let incrementButton = $(".increment-button");
@@ -111,21 +106,14 @@ $("#location-info").click(function() {
 //         // console.log(response);
 //         npsResponse=response;
     
-//         fullName = response.data[index].fullName;
-//         contactEmail = response.data[index].contacts["emailAddresses"][0].emailAddress;
-//         contactPhone = response.data[index].contacts.phoneNumbers[0].phoneNumber;
-//         directionInfo=response.data[index].directionsInfo;
-//         directionURL=response.data[index].directionsUrl;
-//         standardHoursMonday=response.data[index].operatingHours[0].standardHours.monday;
-//         standardHoursTuesday=response.data[index].operatingHours[0].standardHours.tuesday;
-//         standardHoursWednesday=response.data[index].operatingHours[0].standardHours.wednesday;
-//         standardHoursThursday=response.data[index].operatingHours[0].standardHours.thursday;
-//         standardHoursFriday=response.data[index].operatingHours[0].standardHours.friday;
-//         standardHoursSaturday=response.data[index].operatingHours[0].standardHours.saturday;
-//         standardHoursSunday=response.data[index].operatingHours[0].standardHours.sunday;
-//         latitude=response.data[index].latitude;
-//         longitude=response.data[index].longitude;
-//         description = response.data[index].description;
+        // fullName = response.data[index].fullName;
+        // contactEmail = response.data[index].contacts["emailAddresses"][0].emailAddress;
+        // contactPhone = response.data[index].contacts.phoneNumbers[0].phoneNumber;
+        // directionInfo=response.data[index].directionsInfo;
+        // directionURL=response.data[index].directionsUrl;
+        // latitude=response.data[index].latitude;
+        // longitude=response.data[index].longitude;
+        // description = response.data[index].description;
 
 //         addressType1=response.data[index].addresses[0].type;
 //         addressType2=response.data[index].addresses[1].type;
@@ -152,6 +140,9 @@ $("#location-info").click(function() {
   //if(event.key === 'Enter' || event.key === 'Return'){
     $("#location-finder").on("click", function(event) {
         event.preventDefault();
+    /// HIDES HERO BANNER ///
+    $(".hero").attr("style", "display: none;");
+    $("#body").attr("style", "display: inline;");
     /// PROMPTS FOR PERMISSION TO USE PERMISSION /////
     let locatorText = document.getElementById("mapperID");
       getLocation();
@@ -219,6 +210,18 @@ $("#location-info").click(function() {
     
      /// PARK INFORMATION FOR MAP POPULATION ///
             parkTitle = npsResponse.data[entry].fullName;
+            parkDescription = npsResponse.data[entry].description;
+            parkDirectionURL = npsResponse.data[entry].directionsUrl;
+            parkBannerBackground = npsResponse.data[entry].images[0].url;
+            standardHoursMonday= "Monday: " + npsResponse.data[entry].operatingHours[0].standardHours.monday;
+            standardHoursTuesday="Tuesday: " + npsResponse.data[entry].operatingHours[0].standardHours.tuesday;
+            standardHoursWednesday="Wednesday: " +npsResponse.data[entry].operatingHours[0].standardHours.wednesday;
+            standardHoursThursday="Thursday: " +npsResponse.data[entry].operatingHours[0].standardHours.thursday;
+            standardHoursFriday="Friday: " +npsResponse.data[entry].operatingHours[0].standardHours.friday;
+            standardHoursSaturday="Saturday: " +npsResponse.data[entry].operatingHours[0].standardHours.saturday;
+            standardHoursSunday="Sunday: " +npsResponse.data[entry].operatingHours[0].standardHours.sunday;
+            parkFeeOne = npsResponse.data[entry].entranceFees[0];
+            parkFeeTwo =  npsResponse.data[entry].entranceFees[1];
             parkLatLong = (npsResponse.data[entry].latLong).replace("{", "").replace("}","");
             if(parkLatLong != ''){
             parkLatLong = parkLatLong.split(',');
@@ -226,18 +229,80 @@ $("#location-info").click(function() {
             let parkLatClean = parkLat.replace("lat:", "");
             parkLong = (parkLatLong[1])
             let parkLongClean = parkLong.replace("long:", "");
-
-
             let parkButton = document.createElement("button");
-            // $(parkButton).attr("class", "modal-button");
-            // $(parkButton).attr("data-target", "modal-ter");
-            // $(parkButton).attr("aria-haspopup","true");
+    //CALCULATES THE DISTANCE FROM THE USER'S LOCATION TO THAT OF THE NPS LOCATION USING LAT & LONG//
+    function distanceMeasurement (){
+      let radlat1 = Math.PI * (position.coords.latitude)/180;
+      let radlat2 = Math.PI * parkLatClean/180;
+      let theta =  position.coords.longitude - parkLongClean;
+      //console.log("distance long 1: " + position.coords.longitude + "distance lat 2: "+ parkLatClean);
+      let radtheta = Math.PI * theta/180;
+          let distOne = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+      dist = Math.acos(distOne);
+          distTwo = dist * 180/Math.PI;
+      distUnitless = distTwo * 60 * 1.1515;
+      
+      distKM = distUnitless * 1.609344;
+      distMiles = (distKM / 1.6093444);
+      distMiles = distMiles.toFixed(1);
+      console.log("the distance in miles: " + distMiles);
+      return distMiles;
+      
+  }
+  distanceMeasurement();
 
-           
-           //$("#location-info").text(addressLine2);
-           $("#location-info").click(function() {
-            $(".modal").addClass("is-active");  
-          });
+////// MODAL POPULATION////////
+  let modalContainer = document.createElement("div");
+      $(modalContainer).attr("class", "modal");
+      $(modalContainer).attr("id", parkTitle);
+    let modalBackground = document.createElement("div");
+      $(modalBackground).attr("class", "modal-background");
+      $(modalContainer).prepend(modalBackground);
+    let modalCard = document.createElement("div");
+      $(modalCard).attr("class", "modal-card");
+      $(modalContainer).append(modalCard);
+      let modalHead = document.createElement("head");
+        $(modalHead).attr("class","modal-card-head");
+        $(modalCard).append(modalHead);
+        $(modalHead).text(parkTitle + ", only "+distMiles+"mi. away*");
+      let modalClose = document.createElement("button");
+        $(modalClose).attr("class", "modal-close is-large");
+        $(modalClose).attr("aria-label", "close");
+        $(modalClose).on("click", function(event) {
+          event.preventDefault();
+          $(modalContainer).attr("class","modal");
+          })
+          $(".modal-background").on("click", function(event) {
+            event.preventDefault();
+            $(modalContainer).attr("class","modal");
+            })
+        $(modalContainer).append(modalClose);
+      let modalSection = document.createElement("section");
+        $(modalSection).attr("class", "modal-card-body");
+        $(modalSection).text(parkDescription);
+        /// modalsecion below contains modal image background URL & fallback color of orange (#f15025) in case image does not load. ///
+        $(modalSection).attr("style","background-image:url('assets/northern-forest.jpg'); background-size: cover; color: #fff; background-repeat: no-repeat;background-color: #f15025;");
+          descriptionHeading = document.createElement('H2');
+          descriptionHeading.innerHTML = "<u>Why Visit</u>";
+          parkWeeklyHours = document.createElement('ul');
+          parkWeeklyHours.innerHTML = "<u>Hours</u>";
+          dayofWeek = [standardHoursMonday, standardHoursTuesday, standardHoursWednesday, standardHoursThursday, standardHoursFriday, standardHoursSaturday, standardHoursSunday];
+          for (let day=0; day< dayofWeek.length; day++){
+              parkDailyHours =document.createElement('li');
+              parkWeeklyHours.appendChild(parkDailyHours);
+              parkDailyHours.innerHTML=parkDailyHours.innerHTML + dayofWeek[day];
+          }
+        $(modalSection).prepend(descriptionHeading);
+        $(modalSection).append(parkWeeklyHours);
+        parkDirectionURL = document.createElement('a');
+          $(parkDirectionURL).attr("target", "_blank");
+          $(parkDirectionURL).attr("href",directionURL);
+          parkDirectionURL.innerHTML = "directions to " + parkTitle;
+        $(modalSection).append(parkDirectionURL);
+        $(modalCard).append(modalSection);
+        $("#modalArea").append(modalContainer);
+
+
     /// adds marker to the map for 'X' AMOUNT OF LOCATIONS FROM NPS FOR THE STATE ///
     L.marker([parkLatClean, parkLongClean], {
               icon: L.mapquest.icons.marker({
@@ -248,10 +313,38 @@ $("#location-info").click(function() {
               }),
               draggable: false
             }).bindPopup(parkButton).addTo(map);
-            $(parkButton).attr("id", "location-info");
-            $(parkButton).attr("class","button is-active");
+            $(parkButton).attr("id", parkLongClean);
+            $(parkButton).attr("class","button is-light");
            $(parkButton).text(parkTitle);
-           $("#location-title").text(parkTitle);
+           $(parkButton).attr("data-target", parkTitle);
+           $(parkButton).on("click", function(event) {
+            event.preventDefault();
+            $(modalContainer).attr("class", "modal is-active");
+            //console.log("modal event creation: " + modalEventCreation);
+            //console.log("modal Container" + modalEventTitle);
+           })
+        //    <div class="container" id="app"> 
+        //    <div class="modal">
+        //      <div class="modal-background"></div>
+        //        <div class="modal-card">
+        //          <header class="modal-card-head">
+        //            <p class="modal-card-title" id="location-title">Modal title</p>
+        //          </header>
+               
+        //          <section class="modal-card-body" id="location-info">
+        //          </section>
+               
+        //          <footer class="modal-card-foot">
+        //            <button class="button is-success" id="save-location">Save Location</button>
+        //            <button class="button is-light" id="modal-close">Cancel</button>
+        //          </footer>
+        //        </div>
+        //    </div>
+        //  </div>
+
+
+
+           //$("#location-title").text(parkTitle);
            //let parkButton = document.createElement("button");
 // $(parkButton).attr("class", "modal-button");
 // $(parkButton).attr("data-target", "modal-ter");
@@ -262,26 +355,7 @@ $("#location-info").click(function() {
 $("#location-title").text(fullName);
 $("#location-info").text(addressLine2);
 
-    //CALCULATES THE DISTANCE FROM THE USER'S LOCATION TO THAT OF THE NPS LOCATION USING LAT & LONG//
-    function distanceMeasurement (){
-        let radlat1 = Math.PI * (position.coords.latitude)/180;
-        let radlat2 = Math.PI * parkLatClean/180;
-        let theta =  position.coords.longitude - parkLongClean;
-        //console.log("distance long 1: " + position.coords.longitude + "distance lat 2: "+ parkLatClean);
-        let radtheta = Math.PI * theta/180;
-            let distOne = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-        dist = Math.acos(distOne);
-            distTwo = dist * 180/Math.PI;
-        distUnitless = distTwo * 60 * 1.1515;
-        
-        distKM = distUnitless * 1.609344;
-        distMiles = (distKM / 1.6093444);
-        distMiles = distMiles.toFixed(1);
-        console.log("the distance in miles: " + distMiles);
-        return distMiles;
-        
-    }
-    distanceMeasurement();
+
      /// SECTION TO AUTO FILL CONTACT INFORMATION ////
             fullName = response.data[entry].fullName;
             contactEmail = response.data[entry].contacts["emailAddresses"][0].emailAddress;

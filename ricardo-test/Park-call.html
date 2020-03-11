@@ -9,6 +9,22 @@
     <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.1/mapquest.js"></script>     
     <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.1/mapquest.css"/> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <style>
+      #map{
+        z-index: 500;
+      }
+      #modalArea{
+        z-index: 10000;
+      }
+      .modal-card-head {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #f15025;
+  font-size: 18px;
+}
+  .modal-card-body {
+    background-color:#e6e8e6;
+  }
+    </style>
   </head>
 <body>
 
@@ -20,10 +36,11 @@
         </div>
         <div class="column is-three-quarters-tablet is-three-quarters-desktop is-two-thirds-widescreen is-three-quarters-fullhd">
           <section class="hero is-large">
+            <div id="modalArea" z-index="10000000"></div>
             <div class="hero-body" id="map">
               <div class="container">
                 <h1 class="title">
-                  Large title
+                  
                 </h1>
                 <!-- <button class="button is-light" id="location-info">Button</button> -->
                 <h2 class="subtitle">
@@ -39,8 +56,13 @@
       </div>
       </div>
       </section>
+
+
+      <button class="button is-light" id="location-info">Button</button>
             <!-- This is the modal -->
-            <div class="container" id="app"> 
+            <div class="container" id="app">
+              <script src="park-info.js"></script>
+              <script src="park-mq-script.js"></script>
               <div class="modal">
                 <div class="modal-background"></div>
                   <div class="modal-card">
@@ -60,9 +82,7 @@
               </div>
             </div>
 
-
 </body>
-<script src="park-info.js"></script>
-<script src="park-mq-script.js"></script>
+
 
 </html>
