@@ -73,3 +73,6 @@ background-color:#e6e8e6;
 .subtitle {
   text-align:center;
 }
+#location-finder {
+  background-color: rgba(50, 15, 145, 0.3);
+}
