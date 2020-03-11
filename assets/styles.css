@@ -32,7 +32,8 @@ moz-any-link {
 }
 
 .background-color-navbar-var {
-  background-color: #000;
+ background-color: #a4bab7;
+;
   /* background-color: #a4bab7; */
 }
 
@@ -74,5 +75,19 @@ background-color:#e6e8e6;
   text-align:center;
 }
 #location-finder {
-  background-color: rgba(50, 15, 145, 0.3);
+  background-color: rgba(14, 14, 14, 0.7);
+  box-shadow: -3px -3px 16px 0px #f3fffd;
+  box-shadow: 3px 3px 6px 0px #b7bebe;
+  border-color: #fff;
+  color: #fff;
+}
+#location-finder:hover {
+  color: #fff;
+  box-shadow: inset -3px -3px 16px 0px #a3a3a3;
+  box-shadow: inset 3px 3px 6px 0px #222;
+  -moz-box-shadow: inset -3px -3px 16px 0px #a3a3a3;
+  -moz-box-shadow:  inset 3px 3px 6px 0px #222;
+  -webkit-box-shadow: inset -3px -3px 16px 0px #a3a3a3;
+  -webkit-box-shadow:  inset 3px 3px 6px 0px #222;
+  
 }
