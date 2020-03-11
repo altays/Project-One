@@ -56,3 +56,10 @@ font-size: 18px;
 .modal-card-body {
 background-color:#e6e8e6;
 }
+.landscape-hero {
+  background-image:url("assets/go-explore-forestr-image-copyright-by-Marvin-Laput-Tenepre.jpg");
+  background-size: cover;
+  height: 650px;
+  background-repeat: no-repeat;
+  background-color: #f15025 !important;
+}

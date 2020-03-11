@@ -140,6 +140,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
   //if(event.key === 'Enter' || event.key === 'Return'){
     $("#location-finder").on("click", function(event) {
         event.preventDefault();
+    /// HIDES HERO BANNER ///
+    $("#hero-banner").attr("style", "display: none;");
     /// PROMPTS FOR PERMISSION TO USE PERMISSION /////
     let locatorText = document.getElementById("mapperID");
       getLocation();
@@ -227,7 +229,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
             parkLong = (parkLatLong[1])
             let parkLongClean = parkLong.replace("long:", "");
             let parkButton = document.createElement("button");
-
+    //CALCULATES THE DISTANCE FROM THE USER'S LOCATION TO THAT OF THE NPS LOCATION USING LAT & LONG//
+    function distanceMeasurement (){
+      let radlat1 = Math.PI * (position.coords.latitude)/180;
+      let radlat2 = Math.PI * parkLatClean/180;
+      let theta =  position.coords.longitude - parkLongClean;
+      //console.log("distance long 1: " + position.coords.longitude + "distance lat 2: "+ parkLatClean);
+      let radtheta = Math.PI * theta/180;
+          let distOne = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+      dist = Math.acos(distOne);
+          distTwo = dist * 180/Math.PI;
+      distUnitless = distTwo * 60 * 1.1515;
+      
+      distKM = distUnitless * 1.609344;
+      distMiles = (distKM / 1.6093444);
+      distMiles = distMiles.toFixed(1);
+      console.log("the distance in miles: " + distMiles);
+      return distMiles;
+      
+  }
+  distanceMeasurement();
 
 ////// MODAL POPULATION////////
   let modalContainer = document.createElement("div");
@@ -242,7 +263,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
       let modalHead = document.createElement("head");
         $(modalHead).attr("class","modal-card-head");
         $(modalCard).append(modalHead);
-        $(modalHead).text(parkTitle);
+        $(modalHead).text(parkTitle + ", only "+distMiles+"mi. away*");
       let modalClose = document.createElement("button");
         $(modalClose).attr("class", "modal-close is-large");
         $(modalClose).attr("aria-label", "close");
@@ -258,7 +279,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
       let modalSection = document.createElement("section");
         $(modalSection).attr("class", "modal-card-body");
         $(modalSection).text(parkDescription);
-        $(modalSection).attr("style","background-image:url('assets/northern-forest.jpg'); background-size: cover; color: #fff; background-repeat: no-repeat");
+        /// modalsecion below contains modal image background URL & fallback color of orange (#f15025) in case image does not load. ///
+        $(modalSection).attr("style","background-image:url('assets/northern-forest.jpg'); background-size: cover; color: #fff; background-repeat: no-repeat;background-color: #f15025;");
           descriptionHeading = document.createElement('H2');
           descriptionHeading.innerHTML = "<u>Why Visit</u>";
           parkWeeklyHours = document.createElement('ul');
@@ -332,26 +354,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
 $("#location-title").text(fullName);
 $("#location-info").text(addressLine2);
 
-    //CALCULATES THE DISTANCE FROM THE USER'S LOCATION TO THAT OF THE NPS LOCATION USING LAT & LONG//
-    function distanceMeasurement (){
-        let radlat1 = Math.PI * (position.coords.latitude)/180;
-        let radlat2 = Math.PI * parkLatClean/180;
-        let theta =  position.coords.longitude - parkLongClean;
-        //console.log("distance long 1: " + position.coords.longitude + "distance lat 2: "+ parkLatClean);
-        let radtheta = Math.PI * theta/180;
-            let distOne = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-        dist = Math.acos(distOne);
-            distTwo = dist * 180/Math.PI;
-        distUnitless = distTwo * 60 * 1.1515;
-        
-        distKM = distUnitless * 1.609344;
-        distMiles = (distKM / 1.6093444);
-        distMiles = distMiles.toFixed(1);
-        console.log("the distance in miles: " + distMiles);
-        return distMiles;
-        
-    }
-    distanceMeasurement();
+
      /// SECTION TO AUTO FILL CONTACT INFORMATION ////
             fullName = response.data[entry].fullName;
             contactEmail = response.data[entry].contacts["emailAddresses"][0].emailAddress;
