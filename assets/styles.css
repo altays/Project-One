@@ -1,9 +1,15 @@
 body {
   color:#080f0f;
 }
+a {
+  color: #f15025;
+}
 
 .navbar {
   box-shadow:0px 1px 20px #7e9e9b54;
+}
+.navbar-item img {
+  max-height: 3rem;
 }
   
   
@@ -22,15 +28,31 @@ moz-any-link {
   background-color: #e6e8e6;
 }
 
-.background-color-section-var {
-  background-color: #e6e8e6;;
-}
-
 .background-color-navbar-var {
-  background-color: #a4bab7;
+  background-color: #f15025;
+  /* background-color: #a4bab7; */
 }
 
 .text-color-navbar-var {
-  color: #ffffff;
+  color: #f15025;
   text-shadow:1px 1px #080f0f;
+}
+.modal-card-head {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #f15025;
+  font-size: 18px;
+}
+#map{
+  z-index: 10;
+}
+#modalArea{
+  z-index: 10000;
+}
+.modal-card-head {
+font-family: Arial, Helvetica, sans-serif;
+color: #f15025;
+font-size: 18px;
+}
+.modal-card-body {
+background-color:#e6e8e6;
 }
