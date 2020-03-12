@@ -38,7 +38,7 @@ The National Parks Service API provides less details about parks than the Govern
 Future developments for this project include adding more information from the NPS API to the park modal; using more APIs from the National Park Service for Visitor Centers and Places of Interest; and using dropdowns in the right column for instructions and favorite parks
 
 ## Breakdown of Tasks
-
-Ricardo - Logo, splash screen, IP API and Mapquest API 			
-Victoria - Modals, color palette, front end layout
-Alex - Front end layout, National Park Service API, managed the project board
+ 
+Ricardo - Logo, splash screen, IP API and Mapquest API<br/> 			
+Victoria - Modals, color palette, front end layout<br/>
+Alex - Front end layout, National Park Service API, managed the project board<br/>
