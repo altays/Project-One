@@ -5,11 +5,11 @@ body {
   display: none;
 }
 a {
-  color: #f15025;
+  color: #a4bab7;
 }
 
 .navbar {
-  box-shadow:0px 1px 20px #7e9e9b54;
+  box-shadow:0px 1px 10px #080f0f;
 }
 .navbar-item img {
   max-height: 3rem;
@@ -70,6 +70,7 @@ background-color:#e6e8e6;
   color: #fff;
   text-align: center;
   padding-top: 10%;
+  font-family: 'Bungee Shade', Arial, Helvetica, sans-serif;
 }
 .subtitle {
   text-align:center;

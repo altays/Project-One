@@ -1,10 +1,22 @@
+  // STRUCTURE OF FUNCTIONALITY POST ON-CLICK ACTIVITY ///////
+  //// 1A. User is prompted for permission for location.
+  //// 1B. User IP Address is reversed searched via https://IPAPI.CO API.
+  //// 2.  Response from 1B. is plugged into https://NPS.Gov API to get state National Parks.
+  //// 3.  Response from 1A. is plugged into MapQuest API to generate user Pin location.
+  //// 4.  Response from 2. lat. & long. is plugged into MapQuest API to generate Park Locations.
+  //// 5.  Response from 2. is appended to MQ Pin as a button to trigger a modal upon click.
+  //// 6.  Park Lat. & Long. is measured against user Lat. & Long. to determine direct distance for general proximity.
+
+
+
 document.addEventListener("DOMContentLoaded", function (event) {
     $("#location-finder").on("click", function(event) {
         event.preventDefault();
-    /// HIDES HERO BANNER ///
+/// HIDES HERO BANNER ///
     $(".hero").attr("style", "display: none;");
+/// SHOWS THE MAP AREA ///
     $("#body").attr("style", "display: inline;");
-    /// PROMPTS FOR PERMISSION TO USE PERMISSION /////
+/// PROMPTS FOR PERMISSION TO USE PERMISSION /////
     let locatorText = document.getElementById("mapperID");
       getLocation();
       function getLocation() {
@@ -14,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         locatorText.innerHTML = "Geolocation is not supported by this browser.";
         }
       }
-//// gets the address of the user by permission ///
+//// GETS USER API & GETS STATE CODE RESPONSE FOR NPS API IF USER DOESN'T GIVE PERMISSION ///
       function showPosition(position) {
           locatorText.innerHTML = "Latitude: " + position.coords.latitude + 
           "<br>Longitude: " + position.coords.longitude;
@@ -31,9 +43,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 position.coords.longitude = ipTrace.longitude;
           })
         })}
-          let activityName = document.getElementById("activitySearch");
-          let textBox = document.querySelector("#activitySearch");  
-    // gets state for NPS api
+/// GETS USER API & GETS STATE CODE RESPONSE FOR NPS API
           $.get('https://ipapi.co/ip/', function(data){
               let ipFetched = data;
               console.log("user IP: " + ipFetched);
@@ -46,15 +56,19 @@ document.addEventListener("DOMContentLoaded", function (event) {
 /// SETS NPS API USING IPAPI.CO STATE IDENTIFICATION ///
       let limitResults = "&limit=50";
       let apiKey = "C20X2gP148EDeslk7stqM8BU6u6WmOqbAdPeKG8C";
-      let queryURL = "https://developer.nps.gov/api/v1/parks?stateCode="+ stateLocation +"&limit=5&api_key=C20X2gP148EDeslk7stqM8BU6u6WmOqbAdPeKG8C";
+/// NATIONAL PARKS API:
+              /// TO CHANGE RESPONSE QTY: Modify "&limit=7" (min. 1 to max. 50)
+      let queryURL = "https://developer.nps.gov/api/v1/parks?stateCode="+ stateLocation +"&limit=7&api_key=C20X2gP148EDeslk7stqM8BU6u6WmOqbAdPeKG8C";
 //// GENERATES a mapquest map utilizing the lat & long of the user ///
       L.mapquest.key = 'm6r48gcKnaiZ5cS9fynPUC8mEcXnoOjO';
         let map = L.mapquest.map('map', {
         center: [position.coords.latitude, position.coords.longitude],
-        layers: L.mapquest.tileLayer('dark'),
-        zoom: 10,
+        layers: L.mapquest.tileLayer('dark'), /// CONTROLS MAP COLOR: 'light', 'dark', 'hybrid', 'satellite'
+        zoom: 12, /// CONTROLS ZOOM; HIGHER #, THE MORE ZOOMED IN
         opacity: 0.7
         });
+/// CREATES PIN FOR PHYSICAL LOCATION OF THE USER
+        map.addControl(L.mapquest.locatorControl()); // <<< embed map icon (target), to get user's new location
       L.marker([position.coords.latitude, position.coords.longitude], {
         icon: L.mapquest.icons.marker(),
         draggable: false
@@ -68,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         console.log(npsResponse);
         for(entry=0; entry < 10; entry++){
     
-/// PARK INFORMATION FOR MAP POPULATION ///
+/// NPS RESPONSE / INFORMATION FOR MAP MODAL POPULATION ///
             parkTitle = npsResponse.data[entry].fullName;
             parkDescription = npsResponse.data[entry].description;
             parkDirectionURL = npsResponse.data[entry].directionsUrl;
@@ -82,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             standardHoursSunday="Sunday: " +npsResponse.data[entry].operatingHours[0].standardHours.sunday;
             parkFeeOne = npsResponse.data[entry].entranceFees[0];
             parkFeeTwo =  npsResponse.data[entry].entranceFees[1];
+/// USES PARK LAT & LONG TO CREATE PARK PINS
             parkLatLong = (npsResponse.data[entry].latLong).replace("{", "").replace("}","");
             if(parkLatLong != ''){
             parkLatLong = parkLatLong.split(',');
@@ -89,6 +104,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
             let parkLatClean = parkLat.replace("lat:", "");
             parkLong = (parkLatLong[1])
             let parkLongClean = parkLong.replace("long:", "");
+/// APPENDS BUTTON TO MAPQUEST API ///
             let parkButton = document.createElement("button");
 //CALCULATES THE DISTANCE FROM THE USER'S LOCATION TO THAT OF THE NPS LOCATION USING LAT & LONG//
     function distanceMeasurement (){
@@ -160,15 +176,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $(modalSection).append(parkDirectionURL);
         $(modalCard).append(modalSection);
         $("#modalArea").append(modalContainer);
+//// adds one park image per each location to 'directions' section ///
+parkImageSection = document.createElement("img");
+parkimageTitle = document.createElement("h2");
+$(parkimageTitle).text(parkTitle);
+$("#park-images").append(parkimageTitle);
+$(parkImageSection).attr("style", "width: 100%;");
+$(parkImageSection).attr("src", parkBannerBackground);
+$(parkImageSection).attr("alt", parkTitle);
+$("#park-images").append(parkImageSection);
 /// adds marker to the map for 'X' AMOUNT OF LOCATIONS FROM NPS FOR THE STATE ///
     L.marker([parkLatClean, parkLongClean], {
               icon: L.mapquest.icons.marker({
                 shadow: true,
+                title: parkTitle,
                 tooltip: parkTitle,
                 primaryColor: '#f14025',
                 secondaryColor: '#a4bab7'
               }),
               draggable: false
+///APPENDS BUTTON CLASS TO MAP PIN ON-CLICK EVENT ///
             }).bindPopup(parkButton).addTo(map);
             $(parkButton).attr("id", parkLongClean);
             $(parkButton).attr("class","button is-light");
@@ -180,47 +207,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
            })
   $("#location-title").text(fullName);
   $("#location-info").text(addressLine2);
-
-
-/// SECTION TO AUTO FILL CONTACT INFORMATION ////
-            fullName = response.data[entry].fullName;
-            contactEmail = response.data[entry].contacts["emailAddresses"][0].emailAddress;
-            contactPhone = response.data[entry].contacts.phoneNumbers[0].phoneNumber;
-            directionInfo=response.data[entry].directionsInfo;
-            directionURL=response.data[entry].directionsUrl;
-            standardHoursMonday=response.data[entry].operatingHours[0].standardHours.monday;
-            standardHoursTuesday=response.data[entry].operatingHours[0].standardHours.tuesday;
-            standardHoursWednesday=response.data[entry].operatingHours[0].standardHours.wednesday;
-            standardHoursThursday=response.data[entry].operatingHours[0].standardHours.thursday;
-            standardHoursFriday=response.data[entry].operatingHours[0].standardHours.friday;
-            standardHoursSaturday=response.data[entry].operatingHours[0].standardHours.saturday;
-            standardHoursSunday=response.data[entry].operatingHours[0].standardHours.sunday;
-            latitude=response.data[entry].latitude;
-            longitude=response.data[entry].longitude;
-            description = response.data[entry].description;
-            addressType1=response.data[entry].addresses[0].type;
-            addressType2=response.data[entry].addresses[1].type;
-        console.log("address type 1 response: " + addressType1 + ", address type 2 response: " + addressType2);
-// determine these based on the result from determinePhysical -> use this as the index
-//// ALEX CODE TO DETERMINE WHICH ADDRESS TO POPULATE ////
-    function determinePhysical() {
-                if (addressType1 == "Physical") {
-                    addressVar= 0;
-                } else {
-                    addressVar= 1;
-                    }
-        }
-        determinePhysical();
-            addressLine1=response.data[entry].addresses[addressVar].line1;
-            addressLine2=response.data[entry].addresses[addressVar].line2;
-            addressLine3=response.data[entry].addresses[addressVar].line3;
-            addressCity=response.data[entry].addresses[addressVar].city;
-            addressZip=response.data[entry].addresses[addressVar].postalCode;
-            addressState=response.data[entry].addresses[addressVar].stateCode;
-        console.log("address 1: " + addressLine1 + " address 2: " + addressLine2);
-        console.log("parkTitle response: " + parkTitle+ ",distance in miles from current location: "+ distMiles);
-
-    
+  console.log("parkTitle response: " + parkTitle+ ",distance in miles from current location: "+ distMiles);
               }
             }
       })
